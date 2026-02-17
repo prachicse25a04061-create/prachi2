@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday Sahil 💙</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --navy: #000c24;
+            --deep-blue: #001f3f;
+            --soft-white: #f8f9fa;
+            --glow: rgba(0, 191, 255, 0.6);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(180deg, var(--soft-white) 0%, var(--navy) 100%);
+            color: white;
+            overflow: hidden; /* Prevent scrolling during transitions */
+            height: 100vh;
+        }
+
+        /* Background Animations */
+        #canvas-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* Section Styling */
+        section {
+            display: none;
+            height: 100vh;
+            width: 100%;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            transition: transform 0.8s ease-in-out, opacity 0.8s ease-in-out;
+        }
+
+        section.active {
+            display: flex;
+            animation: fadeIn 1s forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h1, .cursive {
+            font-family: 'Dancing Script', cursive;
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 0 0 15px rgba(255,255,255,0.3);
+        }
+
+        p {
+            max-width: 600px;
+            line-height: 1.6;
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+            font-weight: 300;
+        }
+
+        /* Buttons */
+        .btn {
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            padding: 12px 30px;
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: 0.3s;
+            font-size: 1rem;
+            box-shadow: 0 0 10px var(--glow);
+        }
+
+        .btn:hover {
+            background: white;
+            color: var(--navy);
+            box-shadow: 0 0 20px white;
+        }
+
+        /* Music Toggle */
+        #music-control {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 100;
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            color: white;
+            padding: 10px;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        /* Countdown */
+        #timer {
+            font-size: 2.5rem;
+            margin: 20px 0;
+            font-weight: 400;
+            letter-spacing: 2px;
+        }
+
+        /* Input Field */
+        input[type="text"] {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid white;
+            padding: 10px 20px;
+            border-radius: 20px;
+            color: white;
+            outline: none;
+            width: 250px;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        #unlock-msg {
+            height: 20px;
+            font-size: 0.9rem;
+            margin-top: 10px;
+        }
+
+        /* Video Container */
+        .video-box {
+            width: 90%;
+            max-width: 600px;
+            aspect-ratio: 16/9;
+            background: #000;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 0 30px rgba(0,0,0,0.5);
+        }
+
+        /* Letter Style */
+        .letter-card {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 40px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            max-width: 500px;
+        }
+
+        .forever-yours {
+            font-size: 2.5rem;
+            margin-top: 20px;
+            color: #ff4d4d;
+            text-shadow: 0 0 10px #ff4d4d;
+        }
+
+        /* Mobile Adjustments */
+        @media (max-width: 600px) {
+            h1 { font-size: 2.5rem; }
+            p { font-size: 1rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <canvas id="canvas-container"></canvas>
+
+    <button id="music-control" onclick="toggleMusic()">🎵</button>
+    <audio id="bg-music" loop>
+        <source src="https://www.bensound.com/bensound-music/bensound-love.mp3" type="audio/mpeg">
+    </audio>
+
+    <section id="sec-1" class="active">
+        <h2 class="cursive">Counting every heartbeat until 18th February 💙</h2>
+        <div id="timer">00:00:00:00</div>
+        <p>Sahil, your special day is almost here…</p>
+        <button class="btn" onclick="nextSection(2)">Click to Begin Your Surprise 💫</button>
+    </section>
+
+    <section id="sec-2">
+        <h1 class="cursive">Happy Birthday, My Love Sahil 💙</h1>
+        <p>“You are the calm to my chaos, the smile to my every day, and the reason my heart feels so full. On your special day, I just want you to know how deeply loved you are. Thank you for being my safe place, my happiness, my everything.”</p>
+        <button class="btn" onclick="nextSection(3)">Unlock Your Next Surprise ❤️</button>
+    </section>
+
+    <section id="sec-3">
+        <h2 class="cursive">A Secret Just for You</h2>
+        <input type="text" id="nameInput" placeholder="Type your name to unlock..." oninput="checkName()">
+        <div id="unlock-msg"></div>
+    </section>
+
+    <section id="sec-4">
+        <div class="video-box">
+            <iframe width="100%" height="100%" src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allowfullscreen></iframe>
+        </div>
+        <p class="cursive">Every moment with you becomes my favorite memory.</p>
+        <button class="btn" onclick="nextSection(5)">One Last Thing… 💖</button>
+    </section>
+
+    <section id="sec-5">
+        <div class="letter-card">
+            <p>Sahil, on 18th February the world was gifted someone truly special. And I’m the luckiest person because I get to call that person mine.</p>
+            <p>I promise to stand by you, support you, laugh with you, and love you more every single day. Happy Birthday to the love of my life.</p>
+            <div class="forever-yours cursive">Forever Yours ❤️</div>
+        </div>
+    </section>
+
+    <script>
+        // Floating Hearts Animation
+        const canvas = document.getElementById('canvas-container');
+        const ctx = canvas.getContext('2d');
+        let hearts = [];
+
+        function resize() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resize);
+        resize();
+
+        class Heart {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = canvas.height + 100;
+                this.size = Math.random() * 15 + 5;
+                this.speed = Math.random() * 2 + 1;
+                this.opacity = Math.random() * 0.5 + 0.2;
+            }
+            draw() {
+                ctx.fillStyle = `rgba(255, 255, 255, ${this.opacity})`;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size/2, 0, Math.PI * 2);
+                ctx.fill();
+            }
+            update() {
+                this.y -= this.speed;
+                if (this.y < -50) this.y = canvas.height + 50;
+            }
+        }
+
+        for (let i = 0; i < 50; i++) hearts.push(new Heart());
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            hearts.forEach(h => { h.update(); h.draw(); });
+            requestAnimationFrame(animate);
+        }
+        animate();
+
+        // Section Navigation
+        function nextSection(id) {
+            document.querySelectorAll('section').forEach(s => s.classList.remove('active'));
+            document.getElementById(`sec-${id}`).classList.add('active');
+        }
+
+        // Countdown Logic
+        function updateCountdown() {
+            const target = new Date('February 18, 2026 00:00:00').getTime();
+            const now = new Date().getTime();
+            const diff = target - now;
+
+            if (diff <= 0) {
+                document.getElementById('timer').innerHTML = "IT'S YOUR DAY! 🎂";
+                return;
+            }
+
+            const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const s = Math.floor((diff % (1000 * 60)) / 1000);
+
+            document.getElementById('timer').innerHTML = `${d}d ${h}h ${m}m ${s}s`;
+        }
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+
+        // Name Unlock Logic
+        function checkName() {
+            const val = document.getElementById('nameInput').value.toLowerCase().trim();
+            const msg = document.getElementById('unlock-msg');
+            if (val === 'sahil') {
+                msg.style.color = "#00ffcc";
+                msg.innerText = "Of course it’s you, birthday boy 😉💙";
+                setTimeout(() => nextSection(4), 1500);
+            } else if (val.length > 3) {
+                msg.style.color = "#ff4d4d";
+                msg.innerText = "Only my Sahil can unlock this surprise 😌";
+            }
+        }
+
+        // Music Control
+        function toggleMusic() {
+            const music = document.getElementById('bg-music');
+            if (music.paused) {
+                music.play();
+                document.getElementById('music-control').innerText = "⏸️";
+            } else {
+                music.pause();
+                document.getElementById('music-control').innerText = "🎵";
+            }
+        }
+    </script>
+</body>
+</html>
